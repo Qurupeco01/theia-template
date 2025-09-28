@@ -16,6 +16,8 @@
     "@theia/process": "1.65.0",
     "@theia/terminal": "1.65.0",
     "@theia/workspace": "1.65.0",
+    "@theia/plugin-ext": "1.65.0",
+    "@theia/plugin-ext-vscode": "1.65.0",
     "hello-world": "0.0.0"
   },
   "devDependencies": {
@@ -25,7 +27,7 @@
   "scripts": {
     "bundle": "npm run rebuild && theia build --mode development",
     "rebuild": "theia rebuild:electron --cacheRoot ..",
-    "start": "theia start",
+    "start": "theia start --plugins=local-dir:../plugins",
     "watch": "npm run rebuild && theia build --watch --mode development"
   },
   "theia": {

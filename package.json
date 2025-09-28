@@ -7,17 +7,22 @@
   "scripts": {
     "build:browser": "npm --prefix browser-app run bundle",
     "build:electron": "npm --prefix electron-app run bundle",
-    "prepare": "lerna run prepare",
-    "postinstall": "theia check:theia-version",
+    "download:plugins": "theia download:plugins",
+    "prepare": "lerna run prepare && npm run download:plugins",
+    "postinstall": "theia check:theia-version && npm run prepare",
     "start:browser": "npm --prefix browser-app start",
     "start:electron": "npm --prefix electron-app start",
     "watch:browser": "lerna run --parallel watch --ignore electron-app",
     "watch:electron": "lerna run --parallel watch --ignore browser-app"
   },
+  "theiaPluginsDir": "plugins",
+  "theiaPlugins": {
+    
+  },
   "devDependencies": {
     "lerna": "2.4.0"
   },
   "workspaces": [
-    "hello-world", "browser-app", "electron-app"
+    "browser-app", "electron-app", "extensions/*"
   ]
 }

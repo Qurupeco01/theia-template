@@ -1,6 +1,11 @@
-node_modules
-.browser_modules
-lib
+**/node_modules
+**/.browser_modules
+**/dist
+**/lib
+**/src-gen
+**/plugins
 *.log
 *-app/*
 !*-app/package.json
+.vscode/*.json
+!.vscode/launch.json
