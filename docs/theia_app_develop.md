@@ -40,6 +40,8 @@ sudo apt-get install libsecret-1-dev              # for keytar
 
 ## Creating a New Theia Application
 
+> **Disclaimer**: if you are using the generator or the template done by nodeably, it is highly recommended to **use npm and not yarn** -> for some reason, theia ide is built on yarn BUT the empty template is built on npm! So in this file, as it is based mainly in the empty template we will talk about npm, whether in expanding theia file we will talk about yarn
+
 ### Create the project 
 
 To build a theia app from scratch, the generator mentioned in [[theia_overall]] is used. The installation of the generator is with the following command:
@@ -91,7 +93,6 @@ This is the basic structure of the generated project, but you can add more exten
 │   └── ... (more extensions)
 ├── package.json
 ├── tsconfig.json
-└── yarn.lock
 ```
 
 In which - `browser-app` and `electron-app` contain the specific configurations for each application type, and `extensions` contains custom extensions developed for the application.
@@ -101,10 +102,10 @@ In which - `browser-app` and `electron-app` contain the specific configurations 
 #### In the Browser:
 
 ```bash
-yarn
+npm install
 
-yarn build:browser
-yarn start:browser
+npm run build:browser
+npm run start:browser
 ```
 
 Then enter http://localhost:3000/ to see the minimalist app
@@ -112,12 +113,13 @@ Then enter http://localhost:3000/ to see the minimalist app
 #### In desktop:
 
 ```bash
-yarn
+npm install
 
-yarn build:electron
-yarn start:electron
+npm run build:electron
+npm run start:electron
 ```
 
+> **It is highly possible that if you are using theia provided generator there are a lot of extensions out of date, so I reccommend using Nodeably theia template on github, as it fixes vulnerabilities and has updated dependencies!!!**
 #### Note on available scripts
 
 Depending on if you are working with the empty application or with the Theia IDE, the scripts may vary. You can consult the available scripts in the package.json of each application (browser-app/package.json or electron-app/package.json), as well as in the root package.json. The structure of the commands is usually similar, but the names may vary.
@@ -152,7 +154,7 @@ If you want to add it to both, you need to add it to both package.json files.
 }
 ```
 
-Then run `yarn` to install the new dependency and rebuild the application with `yarn build:browser` or `yarn build:electron` depending on which application you are working on.
+Then run `npm install` to install the new dependency and rebuild the application with `npm run build:browser` or `npm run build:electron` depending on which application you are working on.
 
 
 ### Custom Theia Extensions
@@ -170,7 +172,7 @@ If you have a monorepo with your custom extensions inside, you need to add the e
   ]
 }
 ```
-This will tell yarn to include all the extensions in the `extensions` folder as part of the workspace.
+This will tell npm to include all the extensions in the `extensions` folder as part of the workspace.
 
 Then, as explained above, you need to add the extension as a dependency of the application(s) you want to include it in (browser-app or electron-app).
 
@@ -203,7 +205,7 @@ Then you need to define a plugins location. This is done in the theia start scri
 
 ```
 
-This will tell Theia to look for plugins in the `plugins` folder at the root of the project. You can change this path as needed. Note that, after a fresh install this folder does not exist and will be created by theia at the first `yarn`, but if you want to remove a plugin **you may need to delete it manually and recompile after deleting dependency of the package.json**.
+This will tell Theia to look for plugins in the `plugins` folder at the root of the project. You can change this path as needed. Note that, after a fresh install this folder does not exist and will be created by theia at the first `npm install`, but if you want to remove a plugin **you may need to delete it manually and recompile after deleting dependency of the package.json**.
 
 Now there are two ways of integrating the extensions:
 
@@ -223,7 +225,8 @@ These are downloaded and packaged with the application. They are defined in the 
 {
   ...
   "scripts": {
-    "prepare": "existing commands... + yarn run download:plugins",
+    "prepare": "existing commands... + npm run download:plugins",
+    "postinstall": "theia check:theia-version && npm run prepare",
     "download:plugins": "theia download:plugins",
     ...
   },
@@ -235,13 +238,13 @@ These are downloaded and packaged with the application. They are defined in the 
   }
 }
 ```
-As a result, running yarn will download any listed extensions and place them into the folder specified in theiaPluginsDir automatically.
+As a result, running npm install will download any listed extensions and place them into the folder specified in theiaPluginsDir automatically.
 
-> **Note:** For the built in vscode extensions to work, you need to execute the `download:plugins` script befor building the project. If you add it to the `prepare` script as shown above, it will be executed automatically when you run `yarn`. But if the download is not done, the extensions will not be available in the application.
+> **Note:** For the built in vscode extensions to work, you need to execute the `download:plugins` script befor building the project. If you add it to the `prepare` script as shown above, it will be executed automatically when you run `npm install`. But if the download is not done, the extensions will not be available in the application.
 
 ### Post-install extensions
 
-This allows users to install extensions after the application is built and deployed, for example through the command palette or the extensions view. For this, you only need to have the `@theia/vsx-registry` extension installed in your application, as it provides the marketplace support. **TODO**: Extensions menu not showing up
+This allows users to install extensions after the application is built and deployed, for example through the command palette or the extensions view. For this, you only need to have the `@theia/vsx-registry` extension installed in your application, as it provides the marketplace support.
 
 **Browser/Electron application package.json:**
 
@@ -260,9 +263,20 @@ To remove an extension, you need to do the following:
 
 1. Remove the extension from the `theiaPlugins` property in the package.json if it is a pre-installed extension.
 2. Delete the extension from the plugins folder if it is a pre-installed extension.
-3. Rebuild the application with `yarn build:browser` or `yarn build:electron` depending on which application you are working on.
+3. Rebuild the application with `npm run build:browser` or `npm run build:electron` depending on which application you are working on.
 
 > As mentioned before, if you remove a pre-installed extension, you may need to delete it manually from the plugins folder and then recompile the application to ensure it is completely removed. This does not happen with post-installation ones, neither with theia extensions. But in vscode extensions it may be necessary.
+
+## Dependency updates
+
+If you change a lot of dependencies and npm starts giving incompatibility issues with new packages or some versions, try doing the following:
+
+```bash
+# For dependency updates (only when needed):
+rm -rf node_modules package-lock.json */node_modules */package-lock.json
+
+npm install # Regenerates locks with latest compatible versions
+```
 
 ## Available Theia Extensions
 
