@@ -1,8 +1,21 @@
 {
   "private": true,
+  "version": "0.0.0",
+  "license": "TODO",
+  "author": "TODO",
+  "homepage": "TODO",
+  "bugs": {
+    "url": "https://TODO/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://TODO.git"
+  },
   "engines": {
-    "node": ">=18",
-    "npm": ">=8"
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "lerna": "^8.1.8"
   },
   "scripts": {
     "build:browser": "npm --prefix browser-app run bundle",
@@ -13,15 +26,21 @@
     "start:browser": "npm --prefix browser-app start",
     "start:electron": "npm --prefix electron-app start",
     "watch:browser": "lerna run --parallel watch --ignore electron-app",
-    "watch:electron": "lerna run --parallel watch --ignore browser-app"
+    "watch:electron": "lerna run --parallel watch --ignore browser-app",
+    "clean:browser:settings": "./scripts/clean.sh browser:settings",
+    "clean:electron:settings": "./scripts/clean.sh electron:settings",
+    "clean:electron:persistent": "./scripts/clean.sh electron:persistent",
+    "clean:electron:fresh": "npm run clean:electron:settings && npm run clean:electron:persistent",
+    "clean:build": "./scripts/clean.sh build:clean",
+    "clean:analyze": "./scripts/clean.sh analyze"
   },
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
     
   },
-  "devDependencies": {
-    "lerna": "^8.1.8"
-  },
+  "theiaPluginsExcludeIds":[
+
+  ],
   "workspaces": [
     "browser-app", "electron-app", "extensions/*"
   ],

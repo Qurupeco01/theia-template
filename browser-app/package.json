@@ -1,7 +1,44 @@
 {
   "private": true,
   "name": "browser-app",
+  "description": "TODO",
+  "productName": "TODO",
   "version": "0.0.0",
+  "license": "TODO",
+  "author": "TODO",
+  "homepage": "TODO",
+  "bugs": {
+    "url": "https://TODO/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://TODO.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "theia": {
+    "target": "browser",
+    "frontend": {
+      "config": {
+        "applicationName": "TODO",
+        "warnOnPotentiallyInsecureHostPattern": false,
+        "preferences": {
+
+        },
+        "reloadOnReconnect": true
+      }
+    },
+    "backend": {
+      "config": {
+        "warnOnPotentiallyInsecureHostPattern": false,
+        "startupTimeout": -1,
+        "resolveSystemPlugins": false,
+        "configurationFolder": ".browser-app",
+        "frontendConnectionTimeout": 3000
+      }
+    }
+  },
   "dependencies": {
     "@theia/core": "1.65.0",
     "@theia/editor": "1.65.0",
@@ -16,8 +53,7 @@
     "@theia/workspace": "1.65.0",
     "@theia/plugin-ext": "1.65.0",
     "@theia/plugin-ext-vscode": "1.65.0",
-    "@theia/vsx-registry": "1.65.0",
-    "hello-world": "0.0.0"
+    "@theia/vsx-registry": "1.65.0"
   },
   "devDependencies": {
     "@theia/cli": "1.65.0"
@@ -27,8 +63,5 @@
     "rebuild": "theia rebuild:browser --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
     "watch": "npm run rebuild && theia build --watch --mode development"
-  },
-  "theia": {
-    "target": "browser"
   }
 }

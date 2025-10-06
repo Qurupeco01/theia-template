@@ -1,8 +1,46 @@
 {
   "private": true,
   "name": "electron-app",
+  "description": "TODO",
+  "productName": "electron-app",
   "version": "0.0.0",
   "main": "lib/backend/electron-main.js",
+  "license": "TODO",
+  "author": "TODO",
+  "homepage": "TODO",
+  "bugs": {
+    "url": "https://TODO/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://TODO.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "theia": {
+    "target": "electron",
+    "frontend": {
+      "config": {
+        "applicationName": "TODO",
+        "reloadOnReconnect": true,
+        "preferences": {
+          
+        },
+        "electron": {
+          "showWindowEarly": false
+        }
+      }
+    },
+    "backend": {
+      "config": {
+        "frontendConnectionTimeout": -1,
+        "startupTimeout": -1,
+        "resolveSystemPlugins": false,
+        "configurationFolder": ".electron-app"
+      }
+    }
+  },
   "dependencies": {
     "@theia/core": "1.65.0",
     "@theia/editor": "1.65.0",
@@ -17,8 +55,7 @@
     "@theia/terminal": "1.65.0",
     "@theia/workspace": "1.65.0",
     "@theia/plugin-ext": "1.65.0",
-    "@theia/plugin-ext-vscode": "1.65.0",
-    "hello-world": "0.0.0"
+    "@theia/plugin-ext-vscode": "1.65.0"
   },
   "devDependencies": {
     "@theia/cli": "1.65.0",
@@ -29,8 +66,5 @@
     "rebuild": "theia rebuild:electron --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
     "watch": "npm run rebuild && theia build --watch --mode development"
-  },
-  "theia": {
-    "target": "electron"
   }
 }

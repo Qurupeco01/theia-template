@@ -9,3 +9,4 @@
 !*-app/package.json
 .vscode/*.json
 !.vscode/launch.json
+.theia

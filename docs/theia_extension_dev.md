@@ -1,5 +1,6 @@
 source: https://theia-ide.org/docs/authoring_extensions/
 
+#todo añadir contribuciones de ajustes default 
 # Authoring Theia Extensions
 
 This guide covers the process of creating custom Theia extensions and deploying them in Theia-based applications.
