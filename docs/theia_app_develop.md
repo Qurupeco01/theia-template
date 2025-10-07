@@ -242,6 +242,17 @@ As a result, running npm install will download any listed extensions and place t
 
 > **Note:** For the built in vscode extensions to work, you need to execute the `download:plugins` script befor building the project. If you add it to the `prepare` script as shown above, it will be executed automatically when you run `npm install`. But if the download is not done, the extensions will not be available in the application.
 
+Also, you can exclude some plugins of an extension pack using the `theiaPluginsExcludeIds` property in the package.json:
+
+```json
+{
+	"theiaPluginsExcludeIds":[
+		"plugin-to-exclude-1",
+		"plugin-to-exclude-2"
+	],
+}
+```
+
 ### Post-install extensions
 
 This allows users to install extensions after the application is built and deployed, for example through the command palette or the extensions view. For this, you only need to have the `@theia/vsx-registry` extension installed in your application, as it provides the marketplace support.

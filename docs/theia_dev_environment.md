@@ -40,16 +40,18 @@ Persistent state is saved in:
 2. Browser: `~/.config/your-browser-name (e.g. google-crhome)/Default`. This is much more complex as is it stores states in some files managed by the browser that are binded to the IP. Is hard to tell how to delete it, and at the moment there is no reliable way of doing it. However it should not affect development.
 
 If you want to simulate a fresh start and delete both preferences and persistent state in desktop, use  `clean:electron:fresh`
-
-
-
 ## Sub-Extensions dependencies
 
-## Package.json Theia app configuration
+It is important to note that **extensions can be setted as dependencies of other extensions**, so if for example i import an extension `extension_1` that depends on other 3 extensions, all 4 of them will be in the final app.
 
+This can be seen accessing the `package-lock.json`or `yarn.lock`file, and looking for all dependencies of the required extension. Also, in the dev app, in the *About* page all extensions can be seen.
 ## Development tools
 
+
+
 ## Commands and scripts
+
+
 
 ## Building for production
 

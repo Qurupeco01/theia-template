@@ -32,6 +32,7 @@
     "clean:electron:persistent": "./scripts/clean.sh electron:persistent",
     "clean:electron:fresh": "npm run clean:electron:settings && npm run clean:electron:persistent",
     "clean:build": "./scripts/clean.sh build:clean",
+    "clean:plugins": "rm -rf plugins",
     "clean:analyze": "./scripts/clean.sh analyze"
   },
   "theiaPluginsDir": "plugins",
