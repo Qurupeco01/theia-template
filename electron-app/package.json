@@ -23,6 +23,7 @@
     "frontend": {
       "config": {
         "applicationName": "TODO",
+        "defaultTheme": "dark",
         "reloadOnReconnect": true,
         "preferences": {
           
@@ -36,7 +37,6 @@
       "config": {
         "frontendConnectionTimeout": -1,
         "startupTimeout": -1,
-        "resolveSystemPlugins": false,
         "configurationFolder": ".electron-app"
       }
     }

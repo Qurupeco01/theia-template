@@ -6,7 +6,7 @@ Before starting development, it is recommended to customize the TODO fields in t
 
 ## Package.json Theia configuration
 
-
+The `theia/cli`dev dependency adds some specific configurations under the `theia`field in both package.json for browser and electron. For better understanding of availabe options, refer to [[theia_json_properties]].
 
 ## Preferences
 
@@ -52,7 +52,7 @@ If you want to simulate a fresh start and delete both preferences and persistent
 ## Commands and scripts
 
 ## Building for production
-z
+
 
 ## Adding dev dependencies 
 
