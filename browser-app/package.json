@@ -59,9 +59,14 @@
     "@theia/cli": "1.65.0"
   },
   "scripts": {
-    "bundle": "npm run rebuild && theia build --mode development",
+    "build": "yarn run rebuild && theia build --mode production",
+    "build:dev": "yarn run rebuild && theia build --mode development",
+    "clean": "theia clean",
     "rebuild": "theia rebuild:browser --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
-    "watch": "npm run rebuild && theia build --watch --mode development"
+    "watch": "yarn run rebuild && theia build --watch --mode development",
+    "test": "echo \"No tests specified for browser-app\" && exit 0",
+    "lint": "echo \"No linting configured for browser-app\" && exit 0",
+    "lint:fix": "echo \"No linting configured for browser-app\" && exit 0"
   }
 }

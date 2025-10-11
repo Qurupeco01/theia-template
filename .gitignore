@@ -5,6 +5,7 @@
 **/src-gen
 **/plugins
 *.log
+yarn-error.log
 *-app/*
 !*-app/package.json
 .vscode/*.json

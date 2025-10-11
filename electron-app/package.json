@@ -62,9 +62,14 @@
     "electron": "37.3.1"
   },
   "scripts": {
-    "bundle": "npm run rebuild && theia build --mode development",
+    "build": "yarn run rebuild && theia build --mode production",
+    "build:dev": "yarn run rebuild && theia build --mode development",
+    "clean": "theia clean",
     "rebuild": "theia rebuild:electron --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
-    "watch": "npm run rebuild && theia build --watch --mode development"
+    "watch": "yarn run rebuild && theia build --watch --mode development",
+    "test": "echo \"No tests specified for electron-app\" && exit 0",
+    "lint": "echo \"No linting configured for electron-app\" && exit 0",
+    "lint:fix": "echo \"No linting configured for electron-app\" && exit 0"
   }
 }

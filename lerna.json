@@ -1,6 +1,11 @@
 {
   "version": "0.0.0",
-  "npmClient": "npm",
+  "npmClient": "yarn",
+  "packages": [
+    "browser-app",
+    "electron-app",
+    "extensions/*"
+  ],
   "command": {
     "run": {
       "stream": true
