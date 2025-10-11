@@ -123,12 +123,15 @@ Then run `yarn download:plugins` to fetch them.
 |---------|-------------|
 | `yarn build` | Complete production build |
 | `yarn build:dev` | Complete development build |
+| `yarn build:fresh` | Clean + complete production build |
+| `yarn build:fresh:dev` | Clean + complete development build |
 | `yarn build:prepare` | Build extensions + download plugins |
 | `yarn watch` | Watch both applications |
 | `yarn test` | Run all tests |
 | `yarn lint` | Code quality checks |
-| `yarn clean` | Complete workspace reset |
-| `yarn clean:all` | Clean build artifacts + plugins |
+| `yarn clean` | Clean build artifacts |
+| `yarn clean:plugins` | Remove downloaded plugins |
+| `yarn clean:deps` | Remove node_modules |
 
 See the [development environment guide](docs/theia_dev_environment.md) for comprehensive workflow documentation.
 

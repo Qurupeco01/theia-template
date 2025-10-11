@@ -63,8 +63,8 @@ These commands coordinate multiple packages and provide the main development wor
 **Build workflows:**
 - `yarn build`: Complete production build (extensions → plugins → applications, sequential)
 - `yarn build:dev`: Complete development build (extensions → plugins → applications, parallel)
-- `yarn build:fresh`: Complete cleanup and perform production build (`clean:all` + `build`)
-- `yarn build:fresh:dev`: Complete cleanup and perform development build (`clean:all` + `build:dev`)
+- `yarn build:fresh`: Clean build artifacts + plugins and perform complete build
+- `yarn build:fresh:dev`: Clean build artifacts + plugins and perform complete development build
 - `yarn build:prepare`: Build extensions and download plugins (preparation step)
 - `yarn build:applications`: Build both browser and electron apps in production mode
 - `yarn build:applications:dev`: Build both apps in development mode (parallel)
@@ -88,9 +88,9 @@ These commands coordinate multiple packages and provide the main development wor
 **Maintenance:**
 - `yarn prepare`: Check Theia compatibility, run package preparation.
 - `yarn download:plugins`: Refresh VSX plugin cache from `theiaPlugins` configuration
-- `yarn clean`: Complete workspace reset (runs lerna clean + removes node_modules)
-- `yarn clean:all`: Clean build artifacts + plugins (complete cleanup)
+- `yarn clean`: Clean build artifacts (preserves node_modules and plugins)
 - `yarn clean:plugins`: Remove downloaded plugins folder
+- `yarn clean:deps`: Remove node_modules (use when having dependency issues)
 
 ### Browser app (`browser-app/package.json`)
 
@@ -215,20 +215,18 @@ yarn electron build         # Electron production build
 Choose the appropriate cleaning level based on your needs:
 
 ```bash
-# Complete reset (build artifacts + dependencies)
-yarn clean:all              # Remove build artifacts + plugins
+# Light cleaning (daily development)
+yarn clean                  # Remove build artifacts only
 
 # Plugin management
 yarn clean:plugins          # Remove plugins before fresh download
 yarn build:fresh:dev        # Clean + rebuild in development
 
 # Deep cleaning (dependency issues)
-yarn clean                  # Complete reset (lerna clean + node_modules removal)
+yarn clean
+yarn clean:deps             # Remove node_modules only
 
 # Application-specific cleaning
-yarn clean:browser:settings    # Reset browser settings
-yarn clean:electron:fresh      # Reset electron completely
-```
 
 ### Native module rebuilds
 
@@ -250,7 +248,7 @@ yarn browser start          # Verify in browser
 
 **Build errors after dependency changes:**
 ```bash
-yarn clean:all              # Clean previous builds + plugins
+yarn clean                  # Clean previous builds
 yarn build:dev              # Fresh development build
 ```
 
