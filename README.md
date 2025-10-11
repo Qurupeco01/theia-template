@@ -128,7 +128,7 @@ Then run `yarn download:plugins` to fetch them.
 | `yarn test` | Run all tests |
 | `yarn lint` | Code quality checks |
 | `yarn clean` | Complete workspace reset |
-| `yarn clean:build` | Clean build artifacts only |
+| `yarn clean:all` | Clean build artifacts + plugins |
 
 See the [development environment guide](docs/theia_dev_environment.md) for comprehensive workflow documentation.
 
