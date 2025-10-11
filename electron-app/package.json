@@ -59,12 +59,17 @@
   },
   "devDependencies": {
     "@theia/cli": "1.65.0",
-    "electron": "37.3.1"
+    "electron": "37.3.1",
+    "electron-builder": "26.0.12",
+    "rimraf": "^5.0.0"
   },
   "scripts": {
     "build": "yarn run rebuild && theia build --mode production",
     "build:dev": "yarn run rebuild && theia build --mode development",
+    "package": "yarn clean:dist && yarn run rebuild && electron-builder",
+    "package:preview": "yarn clean:dist && yarn run rebuild && electron-builder --dir",
     "clean": "theia clean && npx rimraf node_modules",
+    "clean:dist": "npx rimraf dist",
     "rebuild": "theia rebuild:electron --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
     "watch": "yarn run rebuild && theia build --watch --mode development",
