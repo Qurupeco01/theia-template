@@ -17,7 +17,9 @@
   "packageManager": "yarn@1.22.22",
   "devDependencies": {
     "lerna": "^8.1.8",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "node-gyp": "^11.4.2"
   },
   "scripts": {
     "browser": "yarn workspace browser-app run",
@@ -33,12 +35,14 @@
     "rebuild": "lerna run rebuild --scope browser-app --scope electron-app --stream",
     "watch": "lerna run watch --scope browser-app --scope electron-app --parallel --stream",
     "watch:extensions": "lerna run watch --scope 'extensions/*' --parallel --stream || true",
+
     "test": "lerna run test --scope browser-app --scope electron-app --stream",
     "test:extensions": "lerna run test --scope 'extensions/*' --stream || true",
     "lint": "lerna run lint --scope browser-app --scope electron-app --stream",
     "lint:fix": "lerna run lint:fix --scope browser-app --scope electron-app --stream",
     "lint:extensions": "lerna run lint --scope 'extensions/*' --stream || true",
     "lint:extensions:fix": "lerna run lint:fix --scope 'extensions/*' --stream || true",
+
     "download:plugins": "theia download:plugins",
     "prepare": "theia check:theia-version && lerna run prepare",
     "clean": "lerna run clean",

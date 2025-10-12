@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@theia/cli": "1.65.0",
+    "@theia/native-webpack-plugin": "1.65.0",
     "rimraf": "^6.0.1"
   },
   "scripts": {

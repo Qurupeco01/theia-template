@@ -61,7 +61,9 @@
     "@theia/cli": "1.65.0",
     "electron": "37.3.1",
     "electron-builder": "26.0.12",
-    "rimraf": "^5.0.0"
+    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "concurrently": "^9.2.1"
   },
   "scripts": {
     "build": "yarn run rebuild && theia build --mode production",
