@@ -108,6 +108,7 @@ Executed with `yarn workspace browser-app run <script>` or `yarn browser <script
 
 Executed with `yarn workspace electron-app run <script>` or `yarn electron <script>`:
 
+**Development commands:**
 - `build`: Production build optimized for Electron runtime
 - `build:dev`: Development build with debugging capabilities
 - `rebuild`: Recompile native modules for Electron target
@@ -115,6 +116,10 @@ Executed with `yarn workspace electron-app run <script>` or `yarn electron <scri
 - `start`: Launch the Electron application with local plugin support
 - `clean`: Clean Electron-specific build outputs
 - `test`, `lint`, `lint:fix`: Placeholder commands for future testing and linting setup
+
+**Packaging commands:**
+- `package`: Create production package
+- `package:preview`: Build and package a preview version
 
 ### User state management
 
@@ -210,6 +215,18 @@ yarn browser build          # Browser production build
 yarn electron build         # Electron production build
 ```
 
+### Production packaging (Electron only)
+
+Create distributable packages for end users:
+
+```bash
+# Production packages for distribution
+yarn electron package       # Create production package
+
+# Development/testing packages
+yarn electron package:preview  # Package without publishing (for testing)
+```
+
 ### Cleaning strategies
 
 Choose the appropriate cleaning level based on your needs:
@@ -238,44 +255,8 @@ yarn rebuild:browser        # Browser-specific rebuild
 yarn rebuild:electron       # Electron-specific rebuild
 ```
 
-### Troubleshooting workflows
 
-**Extensions not appearing in applications:**
-```bash
-yarn build:prepare          # Ensure extensions built + plugins downloaded
-yarn browser start          # Verify in browser
-```
-
-**Build errors after dependency changes:**
-```bash
-yarn clean                  # Clean previous builds
-yarn build:dev              # Fresh development build
-```
-
-**"Module compiled against different Node.js version" errors:**
-```bash
-yarn rebuild                # Recompile native modules
-```
-
-**Complete reset:**
-```bash
-yarn clean                  # Remove everything
-yarn install               # Reinstall + prepare
-yarn build:dev             # Fresh development build
-```
-
-## Building for production
-
-
-## Adding dev dependencies 
-
-#todo ver como integrar aqui tailwind css
-
-## Debugging
-
-linting, y todas las dev dependencies tmb hay que mirarlo
-
-## Dependency updates
+### Dependency updates
 
 If you change a lot of dependencies and Yarn starts giving incompatibility issues with new packages or some versions, try doing the following:
 
@@ -285,3 +266,39 @@ rm -rf node_modules yarn.lock */node_modules */yarn.lock
 
 yarn install # Regenerates locks with latest compatible versions
 ```
+
+## Building for production
+
+### Browser Application Deployment
+
+The browser application is designed for server deployment and doesn't require special packaging, as far as we know at the moment.
+
+> #todo: The browser app will serve at `http://localhost:3000` by default. Check how to deploy browser app in a server with a custom IP and domain.
+
+### Electron Application Deployment
+
+The electron application requires packaging into distributable formats for end-user installation.
+
+#### Basic Packaging
+
+```bash
+# Complete packaging workflow
+yarn electron build         # Ensure production build
+yarn electron package       # Create all distributables
+```
+
+This creates platform-specific packages in `electron-app/dist/`:
+- **Windows**: `.exe` installer (NSIS-based)
+- **macOS**: `.dmg` disk image  
+- **Linux**: `.AppImage` portable executable
+
+> #todo: Check for builder settings to customize installation and final product. 
+
+## Adding dev dependencies 
+
+#todo ver como integrar aqui tailwind css
+
+## Debugging
+
+linting, y todas las dev dependencies tmb hay que mirarlo
+
