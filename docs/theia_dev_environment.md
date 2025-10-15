@@ -294,11 +294,188 @@ This creates platform-specific packages in `electron-app/dist/`:
 
 > #todo: Check for builder settings to customize installation and final product. 
 
-## Adding dev dependencies 
+## Managing Dependencies
 
-#todo ver como integrar aqui tailwind css
+### Regular Dependencies vs Dev Dependencies
 
-## Debugging
+Understanding when to use `dependencies` vs `devDependencies` is crucial in a monorepo:
 
-linting, y todas las dev dependencies tmb hay que mirarlo
+**`dependencies`** - Required at runtime:
+- Theia packages (`@theia/core`, `@theia/editor`, etc.)
+- Custom extensions (`@nodeably/my-extension`)
+- Shared libraries used in production code
+- React, Inversify, and other runtime libraries
 
+**`devDependencies`** - Only needed during development/build:
+- Build tools (`typescript`, `rimraf`, `webpack`)
+- Type definitions (`@types/node`, `@types/react`)
+- Linters and formatters (`eslint`, `prettier`)
+- Testing frameworks (`jest`, `mocha`)
+
+### Adding Custom Shared Packages
+
+When you need to share code between extensions (UI libraries, utilities, etc.), create a shared package in the `packages/` directory.
+
+#### 1. Create Package Structure
+
+```bash
+mkdir -p packages/my-package/src
+cd packages/my-package
+```
+
+#### 2. Create `package.json`
+
+```json
+{
+  "name": "@nodeably/my-package",
+  "version": "0.0.1",
+  "private": true,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "clean": "rimraf lib"
+  },
+  "devDependencies": {
+    "typescript": "~5.4.5"
+  }
+}
+```
+
+#### 3. Register in Workspace
+
+Edit the root `package.json`:
+
+```json
+{
+  "workspaces": [
+    "browser-app",
+    "electron-app",
+    "extensions/*",
+    "packages/*"
+  ]
+}
+```
+
+#### 4. Use in Extensions
+
+Add as a dependency in your extension's `package.json`:
+
+```json
+{
+  "name": "@nodeably/my-extension",
+  "dependencies": {
+    "@theia/core": "1.65.0",
+    "@nodeably/my-package": "0.0.1"
+  }
+}
+```
+
+#### 5. Update Build Scripts
+
+Ensure the shared package builds before extensions. In root `package.json`:
+
+```json
+{
+  "scripts": {
+    "build:packages": "lerna run build --scope '@nodeably/package1' --scope '@nodeably/package2' --stream",
+    "build:extensions": "lerna run build --scope '@nodeably/*-extension' --stream",
+    "build:prepare": "yarn run build:packages && yarn run build:extensions && yarn run download:plugins"
+  }
+}
+```
+
+### Adding External Dependencies
+
+#### To Extensions
+
+```bash
+cd extensions/my-extension
+yarn add package-name              # Runtime dependency
+yarn add -D package-name           # Dev dependency
+```
+
+#### To Applications
+
+```bash
+cd browser-app  # or electron-app
+yarn add @nodeably/my-extension    # Add your extension
+yarn add some-theia-package        # Add Theia package
+```
+
+#### To Root (Shared Dev Tools)
+
+```bash
+# In project root
+yarn add -D -W typescript          # -W flag for workspace root
+yarn add -D -W eslint
+```
+
+### Peer Dependencies
+
+Some packages require peer dependencies (like React in UI libraries). Declare them explicitly:
+
+```json
+{
+  "dependencies": {
+    "some-library": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
+```
+
+Extensions using this package must have React in their dependencies.
+
+### Dependency Resolution
+
+Yarn workspaces automatically:
+- **Hoists** common dependencies to the root `node_modules`
+- **Links** workspace packages (no need to publish/install)
+- **Resolves** versions across all packages
+
+After adding dependencies, always run:
+
+```bash
+yarn install  # From project root
+```
+
+### Common Patterns
+
+**Pattern 1: Shared UI Library**
+```
+packages/ui-core/          # Styles, components, design tokens
+├── package.json          # Has Tailwind, React as deps
+└── src/
+extensions/my-extension/
+├── package.json          # Depends on @nodeably/ui-core
+└── src/                  # Uses components from ui-core
+```
+
+**Pattern 2: Shared Utilities**
+```
+packages/common-utils/    # Type definitions, helpers
+├── package.json          # Minimal dependencies
+└── src/
+extensions/*              # All extensions can import utilities
+```
+
+**Pattern 3: Shared Types**
+```
+packages/types/           # TypeScript types only
+├── package.json          # Only typescript as devDep
+└── src/
+extensions/*              # Import types (no runtime cost)
+```
+
+### Best Practices
+
+1. **Keep dependencies minimal** - Only add what you actually need
+2. **Version consistency** - Use same versions across extensions
+3. **Peer dependencies** - Declare them for libraries used by multiple packages
+4. **Build order matters** - Ensure shared packages build before consumers
+5. **Private packages** - Set `"private": true` for monorepo packages
+6. **Scoped names** - Use `@nodeably/*` for internal packages
