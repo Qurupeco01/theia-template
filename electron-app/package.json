@@ -70,7 +70,7 @@
     "build:dev": "yarn run rebuild && theia build --mode development",
     "package": "yarn clean:dist && yarn run rebuild && electron-builder",
     "package:preview": "yarn clean:dist && yarn run rebuild && electron-builder --dir",
-    "clean": "theia clean && npx rimraf node_modules",
+    "clean": "theia clean",
     "clean:dist": "npx rimraf dist",
     "rebuild": "theia rebuild:electron --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",

@@ -63,7 +63,7 @@
   "scripts": {
     "build": "yarn run rebuild && theia build --mode production",
     "build:dev": "yarn run rebuild && theia build --mode development",
-    "clean": "theia clean && npx rimraf node_modules",
+    "clean": "theia clean",
     "rebuild": "theia rebuild:browser --cacheRoot ..",
     "start": "theia start --plugins=local-dir:../plugins",
     "watch": "yarn run rebuild && theia build --watch --mode development",

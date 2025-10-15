@@ -47,7 +47,7 @@
     "prepare": "theia check:theia-version && lerna run prepare",
     "clean": "lerna run clean",
     "clean:plugins": "npx rimraf plugins",
-    "clean:deps": "npx rimraf node_modules",
+    "clean:deps": "npx rimraf node_modules */node_modules extensions/*/node_modules packages/*/node_modules",
     "clean:browser:settings": "./scripts/clean.sh browser:settings",
     "clean:electron:settings": "./scripts/clean.sh electron:settings",
     "clean:electron:persistent": "./scripts/clean.sh electron:persistent",
