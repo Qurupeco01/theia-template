@@ -1,0 +1,33 @@
+{
+  "name": "extension-template",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "1.65.2"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "typescript": "~5.4.5"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "update:theia": "ts-node ../../scripts/update-theia-version.ts",
+    "update:next": "ts-node ../../scripts/update-theia-version.ts next"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/extension-template-frontend-module",
+      "backend": "lib/node/extension-template-backend-module"
+    }
+  ]
+}

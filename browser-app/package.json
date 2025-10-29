@@ -24,9 +24,7 @@
         "applicationName": "TODO",
         "defaultTheme": "dark",
         "warnOnPotentiallyInsecureHostPattern": false,
-        "preferences": {
-
-        },
+        "preferences": {},
         "reloadOnReconnect": true
       }
     },
@@ -40,24 +38,24 @@
     }
   },
   "dependencies": {
-    "@theia/core": "1.65.0",
-    "@theia/editor": "1.65.0",
-    "@theia/filesystem": "1.65.0",
-    "@theia/markers": "1.65.0",
-    "@theia/messages": "1.65.0",
-    "@theia/monaco": "1.65.0",
-    "@theia/navigator": "1.65.0",
-    "@theia/preferences": "1.65.0",
-    "@theia/process": "1.65.0",
-    "@theia/terminal": "1.65.0",
-    "@theia/workspace": "1.65.0",
-    "@theia/plugin-ext": "1.65.0",
-    "@theia/plugin-ext-vscode": "1.65.0",
-    "@theia/vsx-registry": "1.65.0"
+    "@theia/core": "1.65.2",
+    "@theia/editor": "1.65.2",
+    "@theia/filesystem": "1.65.2",
+    "@theia/markers": "1.65.2",
+    "@theia/messages": "1.65.2",
+    "@theia/monaco": "1.65.2",
+    "@theia/navigator": "1.65.2",
+    "@theia/preferences": "1.65.2",
+    "@theia/process": "1.65.2",
+    "@theia/terminal": "1.65.2",
+    "@theia/workspace": "1.65.2",
+    "@theia/plugin-ext": "1.65.2",
+    "@theia/plugin-ext-vscode": "1.65.2",
+    "@theia/vsx-registry": "1.65.2"
   },
   "devDependencies": {
-    "@theia/cli": "1.65.0",
-    "@theia/native-webpack-plugin": "1.65.0",
+    "@theia/cli": "1.65.2",
+    "@theia/native-webpack-plugin": "1.65.2",
     "rimraf": "^6.0.1"
   },
   "scripts": {
@@ -69,6 +67,8 @@
     "watch": "yarn run rebuild && theia build --watch --mode development",
     "test": "echo \"No tests specified for browser-app\" && exit 0",
     "lint": "echo \"No linting configured for browser-app\" && exit 0",
-    "lint:fix": "echo \"No linting configured for browser-app\" && exit 0"
+    "lint:fix": "echo \"No linting configured for browser-app\" && exit 0",
+    "update:theia": "ts-node ../scripts/update-theia-version.ts",
+    "update:next": "ts-node ../scripts/update-theia-version.ts next"
   }
 }

@@ -10,6 +10,10 @@ A modern, streamlined template for building Theia-based IDEs with Yarn workspace
 - 📦 **Yarn workspaces**: Modern dependency management with Yarn classic
 - 🛠️ **Lerna coordination**: Streamlined monorepo scripts and build orchestration
 - 🧹 **Comprehensive tooling**: Build, watch, test, lint, and clean workflows
+- 🔄 **Version management**: Smart Theia version update system inspired by theia-ide
+- 🐛 **Enhanced debugging**: Complete VS Code debug configurations with compound launches
+- 🔍 **ESLint integration**: Modular, shared ESLint configuration with XSS protection
+- 🔓 **Plugin management**: Automatic file permission handling for downloaded plugins
 
 ## Quick Start
 
@@ -132,8 +136,52 @@ Then run `yarn download:plugins` to fetch them.
 | `yarn clean` | Clean build artifacts |
 | `yarn clean:plugins` | Remove downloaded plugins |
 | `yarn clean:deps` | Remove node_modules |
+| `yarn update:theia <version>` | Update Theia to specific version |
+| `yarn update:next` | Update to Theia 'next' version |
+| `yarn permissions:writeable` | Fix file permissions for plugins |
 
 See the [development environment guide](docs/theia_dev_environment.md) for comprehensive workflow documentation.
+
+## Version Management
+
+This template includes a robust version management system inspired by [theia-ide](https://github.com/eclipse-theia/theia-ide):
+
+```bash
+# Update root workspace to specific Theia version
+yarn update:theia 1.66.0
+
+# Update all child workspaces (browser-app, electron-app, extensions)
+yarn update:theia:children 1.66.0
+
+# Update to 'next' version across all workspaces
+yarn update:next
+
+# After updating, reinstall and rebuild
+yarn install
+yarn build:fresh
+```
+
+## Enhanced Developer Experience
+
+### ESLint Configuration
+- Modular, shared ESLint rules in `configs/`
+- XSS protection rules
+- Deprecation warnings
+- Automatic code quality checks
+
+### VS Code Debugging
+- Full-stack debugging with compound launches
+- Separate configurations for browser and Electron
+- Plugin host debugging support
+- Frontend debugging with Chrome DevTools
+
+### CI/CD
+- Automated builds on every push
+- Pull request validation
+- Test and lint checks
+- GitHub Actions workflow included
+
+For detailed information about all improvements, see [MEJORAS_IMPLEMENTADAS.md](docs/MEJORAS_IMPLEMENTADAS.md).
 
 ## Documentation
 

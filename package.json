@@ -19,7 +19,8 @@
     "lerna": "^8.1.8",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "node-gyp": "^11.4.2"
+    "node-gyp": "^11.4.2",
+    "type-fest": "^0.20.2"
   },
   "scripts": {
     "browser": "yarn workspace browser-app run",
@@ -35,15 +36,14 @@
     "rebuild": "lerna run rebuild --scope browser-app --scope electron-app --stream",
     "watch": "lerna run watch --scope browser-app --scope electron-app --parallel --stream",
     "watch:extensions": "lerna run watch --scope 'extensions/*' --parallel --stream || true",
-
     "test": "lerna run test --scope browser-app --scope electron-app --stream",
     "test:extensions": "lerna run test --scope 'extensions/*' --stream || true",
     "lint": "lerna run lint --scope browser-app --scope electron-app --stream",
     "lint:fix": "lerna run lint:fix --scope browser-app --scope electron-app --stream",
     "lint:extensions": "lerna run lint --scope 'extensions/*' --stream || true",
     "lint:extensions:fix": "lerna run lint:fix --scope 'extensions/*' --stream || true",
-
-    "download:plugins": "theia download:plugins",
+    "download:plugins": "theia download:plugins && yarn run permissions:writeable",
+    "permissions:writeable": "ts-node scripts/make-files-writeable.ts plugins",
     "prepare": "theia check:theia-version && lerna run prepare",
     "clean": "lerna run clean",
     "clean:plugins": "npx rimraf plugins",
@@ -52,21 +52,18 @@
     "clean:electron:settings": "./scripts/clean.sh electron:settings",
     "clean:electron:persistent": "./scripts/clean.sh electron:persistent",
     "clean:electron:fresh": "yarn run clean:electron:settings && yarn run clean:electron:persistent",
-    "clean:analyze": "./scripts/clean.sh analyze"
+    "clean:analyze": "./scripts/clean.sh analyze",
+    "update:theia": "ts-node scripts/update-theia-version.ts",
+    "update:theia:children": "lerna run update:theia --",
+    "update:next": "ts-node scripts/update-theia-version.ts next && lerna run update:next"
   },
   "theiaPluginsDir": "plugins",
-  "theiaPlugins": {
-    
-  },
-  "theiaPluginsExcludeIds":[
-
-  ],
+  "theiaPlugins": {},
+  "theiaPluginsExcludeIds": [],
   "workspaces": [
     "browser-app",
     "electron-app",
     "extensions/*"
   ],
-  "resolutions": {
-
-  }
+  "resolutions": {}
 }

@@ -25,9 +25,7 @@
         "applicationName": "TODO",
         "defaultTheme": "dark",
         "reloadOnReconnect": true,
-        "preferences": {
-          
-        },
+        "preferences": {},
         "electron": {
           "showWindowEarly": false
         }
@@ -42,23 +40,23 @@
     }
   },
   "dependencies": {
-    "@theia/core": "1.65.0",
-    "@theia/editor": "1.65.0",
-    "@theia/electron": "1.65.0",
-    "@theia/filesystem": "1.65.0",
-    "@theia/markers": "1.65.0",
-    "@theia/messages": "1.65.0",
-    "@theia/monaco": "1.65.0",
-    "@theia/navigator": "1.65.0",
-    "@theia/preferences": "1.65.0",
-    "@theia/process": "1.65.0",
-    "@theia/terminal": "1.65.0",
-    "@theia/workspace": "1.65.0",
-    "@theia/plugin-ext": "1.65.0",
-    "@theia/plugin-ext-vscode": "1.65.0"
+    "@theia/core": "1.65.2",
+    "@theia/editor": "1.65.2",
+    "@theia/electron": "1.65.2",
+    "@theia/filesystem": "1.65.2",
+    "@theia/markers": "1.65.2",
+    "@theia/messages": "1.65.2",
+    "@theia/monaco": "1.65.2",
+    "@theia/navigator": "1.65.2",
+    "@theia/preferences": "1.65.2",
+    "@theia/process": "1.65.2",
+    "@theia/terminal": "1.65.2",
+    "@theia/workspace": "1.65.2",
+    "@theia/plugin-ext": "1.65.2",
+    "@theia/plugin-ext-vscode": "1.65.2"
   },
   "devDependencies": {
-    "@theia/cli": "1.65.0",
+    "@theia/cli": "1.65.2",
     "electron": "37.3.1",
     "electron-builder": "26.0.12",
     "rimraf": "^5.0.0",
@@ -77,6 +75,8 @@
     "watch": "yarn run rebuild && theia build --watch --mode development",
     "test": "echo \"No tests specified for electron-app\" && exit 0",
     "lint": "echo \"No linting configured for electron-app\" && exit 0",
-    "lint:fix": "echo \"No linting configured for electron-app\" && exit 0"
+    "lint:fix": "echo \"No linting configured for electron-app\" && exit 0",
+    "update:theia": "ts-node ../scripts/update-theia-version.ts",
+    "update:next": "ts-node ../scripts/update-theia-version.ts next"
   }
 }
